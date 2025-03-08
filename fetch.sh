@@ -42,8 +42,36 @@ git remote add dest https://github.com/andrewhertog/codex.git || {
 echo "Fetching from origin..."
 git fetch origin || { echo "Failed to fetch from origin"; exit 1; }
 
-echo "Checking out version 1.97.0.25037..."
-git checkout 1.97.0.25037 || { echo "Failed to checkout version"; exit 1; }
+# Get the version to checkout - either from command line argument or latest release
+if [ -n "$1" ]; then
+  VERSION="$1"
+  echo "Using specified version: $VERSION"
+else
+  echo "Fetching latest VSCodium release version..."
+  # Use GitHub API to get the latest release tag with jq
+  if ! command -v jq &> /dev/null; then
+    echo "jq is required but not installed. Please install jq or specify a version manually."
+    exit 1
+  fi
+  
+  LATEST_VERSION=$(curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | jq -r '.tag_name')
+  
+  if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
+    echo "Failed to determine latest version. Please specify a version manually."
+    exit 1
+  fi
+  
+  VERSION="$LATEST_VERSION"
+  echo "Latest version is: $VERSION"
+fi
+
+echo "Checking out version $VERSION..."
+git checkout $VERSION || { 
+  echo "Failed to checkout version $VERSION"
+  echo "Available versions (last 10):"
+  git tag -l | sort -V | tail -n 10
+  exit 1
+}
 
 echo "Creating new branch..."
 TAG=update/$(date +%Y-%m-%d-%H-%M-%S)
