@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-LC_ALL=C
+export LC_ALL=en_US.UTF-8
 
 cd vscodium
 
