@@ -1,0 +1,12 @@
+diff --git a/.github/workflows/stable-linux.yml b/.github/workflows/stable-linux.yml
+index 3e4050a..0a38785 100644
+--- a/.github/workflows/stable-linux.yml
++++ b/.github/workflows/stable-linux.yml
+@@ -161,6 +161,7 @@ jobs:
+       SHOULD_BUILD: ${{ (needs.check.outputs.SHOULD_BUILD == 'yes' || github.event.inputs.generate_assets == 'true') && 'yes' || 'no' }}
+       SHOULD_DEPLOY: ${{ needs.check.outputs.SHOULD_DEPLOY }}
+       VSCODE_ARCH: ${{ matrix.vscode_arch }}
++      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+     outputs:
+       RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+       SHOULD_BUILD: ${{ env.SHOULD_BUILD }}

@@ -1,0 +1,13 @@
+diff --git a/LICENSE b/LICENSE
+index 0e93e16..3b2b0cb 100644
+--- a/LICENSE
++++ b/LICENSE
+@@ -1,6 +1,7 @@
+ MIT License
+ 
+-Copyright (c) 2018-present The Codex contributors
++Copyright (c) 2024-present BiblioNexus Foundation contributors
++Copyright (c) 2018-present The VSCodium contributors
+ Copyright (c) 2018-present Peter Squicciarini
+ Copyright (c) 2015-present Microsoft Corporation
+ 
